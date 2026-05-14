@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Indra Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ink: #0D0D0D;
+    --ink2: #3A3A3A;
+    --ink3: #7A7A7A;
+    --paper: #F5F2EC;
+    --paper2: #EAE6DC;
+    --accent: #1A1A2E;
+    --gold: #C9A94B;
+    --gold2: #E8C96A;
+    --white: #FFFFFF;
+    --radius: 4px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 5vw;
+    background: var(--paper);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.15rem;
+    letter-spacing: -0.02em; color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.85rem; font-weight: 500; color: var(--ink2); text-decoration: none; letter-spacing: 0.02em; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem; font-weight: 700; letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: var(--accent); color: var(--gold2);
+    padding: 0.6rem 1.4rem; border-radius: var(--radius);
+    text-decoration: none; transition: opacity 0.2s;
+  }
+  .nav-cta:hover { opacity: 0.85; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    padding: 10rem 5vw 6rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -10%; right: -5%;
+    width: 55vw; height: 110vh;
+    background: var(--accent);
+    clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%);
+    z-index: 0;
+  }
+  .hero-text { position: relative; z-index: 1; }
+  .hero-eyebrow {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.25rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block;
+    width: 2rem; height: 2px; background: var(--gold);
+  }
+  .hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.6rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+  .hero-title em { font-style: normal; color: var(--gold); }
+  .hero-sub {
+    font-size: 1rem; font-weight: 300; line-height: 1.75;
+    color: var(--ink2); max-width: 420px; margin-bottom: 2.5rem;
+  }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: var(--gold); color: var(--accent);
+    padding: 0.85rem 2rem; border-radius: var(--radius);
+    text-decoration: none; transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--gold2); }
+  .btn-outline {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: transparent; color: var(--ink);
+    border: 1.5px solid var(--ink);
+    padding: 0.85rem 2rem; border-radius: var(--radius);
+    text-decoration: none; transition: all 0.2s;
+  }
+  .btn-outline:hover { background: var(--ink); color: var(--paper); }
+  .hero-visual {
+    position: relative; z-index: 1;
+    display: flex; justify-content: center; align-items: center;
+  }
+  .hero-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(201,169,75,0.25);
+    border-radius: 8px;
+    padding: 2.5rem;
+    max-width: 340px; width: 100%;
+  }
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  .stat-item { }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem; font-weight: 800; color: var(--gold2);
+    line-height: 1;
+  }
+  .stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 0.3rem; letter-spacing: 0.05em; }
+  .hero-card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 1.75rem;
+  }
+  
+  /* MARQUEE */
+  .marquee-wrap {
+    background: var(--accent);
+    padding: 1rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .marquee-inner {
+    display: inline-flex; gap: 3rem;
+    animation: marquee 20s linear infinite;
+  }
+  .marquee-item {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(201,169,75,0.6);
+  }
+  .marquee-item.bright { color: var(--gold2); }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* SECTIONS */
+  section { padding: 7rem 5vw; }
+  .section-tag {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold);
+    display: flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .section-tag::before { content: ''; display: block; width: 1.5rem; height: 2px; background: var(--gold); }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 800; letter-spacing: -0.03em; line-height: 1.1;
+    color: var(--ink); margin-bottom: 1.25rem;
+  }
+  .section-sub {
+    font-size: 1rem; font-weight: 300; line-height: 1.7;
+    color: var(--ink2); max-width: 520px;
+  }
+
+  /* SERVICES */
+  .services { background: var(--white); }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5px; background: var(--paper2);
+    margin-top: 4rem;
+    border: 1.5px solid var(--paper2);
+    border-radius: 8px; overflow: hidden;
+  }
+  .service-card {
+    background: var(--white);
+    padding: 2.25rem 2rem;
+    position: relative;
+    transition: background 0.25s;
+    cursor: default;
+  }
+  .service-card:hover { background: var(--accent); }
+  .service-card:hover .svc-title, .service-card:hover .svc-desc { color: var(--white); }
+  .service-card:hover .svc-icon { color: var(--gold2); }
+  .svc-icon { font-size: 1.5rem; color: var(--gold); margin-bottom: 1.25rem; }
+  .svc-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem; font-weight: 700;
+    color: var(--ink); margin-bottom: 0.75rem;
+    transition: color 0.25s;
+  }
+  .svc-desc { font-size: 0.875rem; line-height: 1.65; color: var(--ink3); transition: color 0.25s; }
+  .svc-num {
+    position: absolute; top: 1.25rem; right: 1.5rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.65rem; font-weight: 700;
+    color: var(--paper2); letter-spacing: 0.1em;
+  }
+  .service-card:hover .svc-num { color: rgba(255,255,255,0.12); }
+
+  /* TEAM */
+  .team { background: var(--paper); }
+  .team-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem; margin-top: 4rem;
+  }
+  .team-member {
+    background: var(--white);
+    padding: 2rem; border-radius: 8px;
+    border: 1px solid var(--paper2);
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .team-member:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  }
+  .team-avatar {
+    width: 60px; height: 60px; border-radius: 50%;
+    background: var(--accent); margin: 0 auto 1.25rem;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800; color: var(--gold);
+  }
+  .team-role {
+    font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .team-name {
+    font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800;
+    color: var(--ink); margin-bottom: 0.5rem;
+  }
+  .team-inst { font-size: 0.85rem; color: var(--ink3); line-height: 1.5; }
+
+  /* CONTACT */
+  .contact { background: var(--accent); }
+  .contact .section-tag { color: var(--gold); }
+  .contact .section-tag::before { background: var(--gold); }
+  .contact .section-title { color: var(--white); }
+  .contact .section-sub { color: rgba(255,255,255,0.55); }
+  .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; margin-top: 4rem; align-items: start; }
+  .contact-info { display: flex; flex-direction: column; gap: 2rem; }
+  .contact-item { display: flex; gap: 1rem; align-items: flex-start; }
+  .ci-icon {
+    width: 40px; height: 40px; background: rgba(201,169,75,0.15);
+    border-radius: 6px; display: flex; align-items: center; justify-content: center;
+    color: var(--gold); font-size: 1rem; flex-shrink: 0;
+  }
+  .ci-label { font-size: 0.72rem; font-weight: 500; color: rgba(255,255,255,0.35); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.25rem; }
+  .ci-value { font-size: 0.9rem; color: rgba(255,255,255,0.75); }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .field { display: flex; flex-direction: column; gap: 0.4rem; }
+  .field label { font-size: 0.72rem; font-weight: 500; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; text-transform: uppercase; }
+  .field input, .field textarea, .field select {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 4px; padding: 0.75rem 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; color: var(--white);
+    outline: none; transition: border-color 0.2s;
+    resize: vertical;
+  }
+  .field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,0.25); }
+  .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--gold); }
+  .field select option { background: var(--accent); color: var(--white); }
+  .submit-btn {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: var(--gold); color: var(--accent);
+    border: none; border-radius: 4px;
+    padding: 0.9rem 2rem; cursor: pointer;
+    transition: background 0.2s; align-self: flex-start;
+    margin-top: 0.5rem;
+  }
+  .submit-btn:hover { background: var(--gold2); }
+
+  /* FOOTER */
+  footer {
+    background: #080810;
+    padding: 3rem 5vw;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1.5rem;
+  }
+  .footer-logo { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 800; color: rgba(255,255,255,0.7); text-decoration: none; }
+  .footer-logo span { color: var(--gold); }
+  .footer-links { display: flex; gap: 2rem; list-style: none; }
+  .footer-links a { font-size: 0.8rem; color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy { font-size: 0.75rem; color: rgba(255,255,255,0.2); }
+
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero::before { width: 100vw; right: 0; clip-path: none; top: auto; bottom: 0; height: 45vh; opacity: 0.4; }
+    .hero-visual { display: none; }
+    .contact-layout { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Indra<span>.</span>Solutions</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="#contact">Get In Touch</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow">Indra Solutions</div>
+    <h1 class="hero-title">Delivering<br><em>Impactful</em><br>Solutions.</h1>
+    <p class="hero-sub">We are an agency of developers and an Artificial Intelligence team. As your dedicated website development, freelancing, and engineering problem solver, our resolution team brings AI and software solutions directly to you.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#contact">Contact Us</a>
+      <a class="btn-outline" href="#services">Our Deliverables</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card">
+      <div class="hero-card-title">Agency Capabilities</div>
+      <div class="stat-grid">
+        <div class="stat-item">
+          <div class="stat-num">AI Apps</div>
+          <div class="stat-label">Web Apps Integrated</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">Code</div>
+          <div class="stat-label">Software Engineering</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">AI</div>
+          <div class="stat-label">Artificial Intelligence</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">24/7</div>
+          <div class="stat-label">Reliability</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-inner">
+    <span class="marquee-item bright">AI Solutions</span><span class="marquee-item">✦</span>
+    <span class="marquee-item">Websites</span><span class="marquee-item">✦</span>
+    <span class="marquee-item bright">Freelance</span><span class="marquee-item">✦</span>
+    <span class="marquee-item">Engineering</span><span class="marquee-item">✦</span>
+    <span class="marquee-item bright">AI Solutions</span><span class="marquee-item">✦</span>
+    <span class="marquee-item">Websites</span><span class="marquee-item">✦</span>
+    <span class="marquee-item bright">Freelance</span><span class="marquee-item">✦</span>
+    <span class="marquee-item">Engineering</span><span class="marquee-item">✦</span>
+    <span class="marquee-item bright">AI Solutions</span><span class="marquee-item">✦</span>
+    <span class="marquee-item">Websites</span><span class="marquee-item">✦</span>
+  </div>
+</div>
+
+<section class="services" id="services">
+  <div class="section-tag">Our Deliverables</div>
+  <h2 class="section-title">An Agency for<br>All Services & AI</h2>
+  <p class="section-sub">We deploy software engineering, Artificial Intelligence strategies, and a dedicated resolution team perfectly tailored to solve your project's challenges seamlessly.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="svc-num">01</div>
+      <div class="svc-icon">⬡</div>
+      <div class="svc-title">Websites & Web Dev</div>
+      <p class="svc-desc">Premium websites and full-stack platforms crafted to excel in today's digital landscape.</p>
+    </div>
+    <div class="service-card">
+      <div class="svc-num">02</div>
+      <div class="svc-icon">◈</div>
+      <div class="svc-title">Freelance Experts</div>
+      <p class="svc-desc">We dispatch targeted freelancers to augment your team and execute fast on specific deliverables.</p>
+    </div>
+    <div class="service-card">
+      <div class="svc-num">03</div>
+      <div class="svc-icon">◯</div>
+      <div class="svc-title">Software Engineers</div>
+      <p class="svc-desc">If required, our elite software engineers step in to solve the hardest problems directly.</p>
+    </div>
+    <div class="service-card">
+      <div class="svc-num">04</div>
+      <div class="svc-icon">▣</div>
+      <div class="svc-title">Full Agency Services</div>
+      <p class="svc-desc">We serve as a holistic agency handling design, execution, and everything in between.</p>
+    </div>
+  </div>
+</section>
+
+<section class="team" id="team">
+  <div class="section-tag">Who We Are</div>
+  <h2 class="section-title">Engineers &<br>Visionaries</h2>
+  <div class="team-grid">
+    <div class="team-member">
+      <div class="team-avatar">KR</div>
+      <div class="team-role">Founder</div>
+      <div class="team-name">K. Indra Sena Reddy</div>
+      <div class="team-inst">NGIT</div>
+    </div>
+    <div class="team-member">
+      <div class="team-avatar">RR</div>
+      <div class="team-role">Software Engineer</div>
+      <div class="team-name">Rutesh Reddy</div>
+      <div class="team-inst">IIIT Bhubaneswar</div>
+    </div>
+    <div class="team-member">
+      <div class="team-avatar">SV</div>
+      <div class="team-role">Software Engineer</div>
+      <div class="team-name">Sattvik</div>
+      <div class="team-inst">IIIT Bhubaneswar</div>
+    </div>
+    <div class="team-member">
+      <div class="team-avatar">MA</div>
+      <div class="team-role">Software Engineer</div>
+      <div class="team-name">Monish Sai Abiram</div>
+      <div class="team-inst">Keshav Memorial Institute of Technology</div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="section-tag">Get In Touch</div>
+  <h2 class="section-title">Send a Message.<br>Solve a Problem.</h2>
+  <p class="section-sub">Any happen to come and give me any message, there should be a contact sent to us.</p>
+  <div class="contact-layout">
+    <div class="contact-info">
+      <div class="contact-item">
+        <div class="ci-icon">✉</div>
+        <div>
+          <div class="ci-label">Email</div>
+          <div class="ci-value">kattaindra15@gmail.com</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="ci-icon">☎</div>
+        <div>
+          <div class="ci-label">Contact</div>
+          <div class="ci-value">7899294058</div>
+        </div>
+      </div>
+    </div>
+    <!-- To make this work dynamically without a backend server, use a free service like Formspree.io -->
+    <form class="contact-form" action="https://formspree.io/f/meenbjov" method="POST">
+      <div class="form-row">
+        <div class="field">
+          <label for="fname">Name</label>
+          <input type="text" id="fname" name="name" placeholder="Your name" required />
+        </div>
+        <div class="field">
+          <label for="fcontact">Contact Number</label>
+          <input type="text" id="fcontact" name="phone" placeholder="Your phone number" required />
+        </div>
+      </div>
+      <div class="field">
+        <label for="femail">Email</label>
+        <input type="email" id="femail" name="email" placeholder="your@email.com" required />
+      </div>
+      <div class="field">
+        <label for="fmsg">Message</label>
+        <textarea id="fmsg" name="message" rows="5" placeholder="How can we help? Drop your message here..." required></textarea>
+      </div>
+      <button class="submit-btn" type="submit">Send Message →</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <a class="footer-logo" href="#">Indra<span>.</span>Solutions</a>
+  <ul class="footer-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <span class="footer-copy">© 2026 Indra Solutions. All rights reserved.</span>
+</footer>
+
+</body>
+</html>
